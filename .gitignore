@@ -9,5 +9,7 @@
 *.pdf
 *.py~
 
+.idea/
+spearmint.egg-info/
 
 

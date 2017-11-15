@@ -195,6 +195,8 @@ except ImportError: import json
 
 from collections import OrderedDict
 
+import pandas as pd
+
 from spearmint.utils.database.mongodb import MongoDB
 from spearmint.tasks.task_group       import TaskGroup
 
@@ -209,6 +211,9 @@ def get_options():
     parser.add_option("--config", dest="config_file",
                       help="Configuration file name.",
                       type="string", default="config.json")
+    parser.add_option("--evals", dest="max_eval",
+                      help="Maximum number of evaluations",
+                      type="int", default=200)
 
     (commandline_kwargs, args) = parser.parse_args()
 
@@ -224,6 +229,7 @@ def get_options():
     except:
         raise Exception("config.json did not load properly. Perhaps a spurious comma?")
     options["config"]  = commandline_kwargs.config_file
+    options["max_eval"]= commandline_kwargs.max_eval
 
 
     # Set sensible defaults for options
@@ -278,7 +284,7 @@ def main():
                 # Load jobs from DB 
                 # (move out of one or both loops?) would need to pass into load_tasks
                 jobs = load_jobs(db, experiment_name)
-                
+
                 # Remove any broken jobs from pending.
                 remove_broken_jobs(db, jobs, experiment_name, resources)
 
@@ -302,6 +308,12 @@ def main():
                 # Print out the status of the resources
                 # resource.printStatus(jobs)
                 print_resources_status(resources.values(), jobs)
+
+                pickle_completed_job(jobs, os.path.join(expt_dir, 'query_eval_data.pkl'))
+
+                n_evaluation = len([job['status'] for job in jobs if job['status'] == 'complete'])
+                if n_evaluation >= options['max_eval']:
+                    return os.system('mongod --shutdown --dbpath ' + os.path.join(expt_dir, 'mongodb'))
 
         # If no resources are accepting jobs, sleep
         # (they might be accepting if suggest takes a while and so some jobs already finished by the time this point is reached)
@@ -428,6 +440,25 @@ def load_jobs(db, experiment_name):
 def save_job(job, db, experiment_name):
     """save a job to the database"""
     db.save(job, experiment_name, 'jobs', {'id' : job['id']})
+
+def pickle_completed_job(jobs, filename):
+    df_columns = ['index', 'submit time', 'start time', 'end time', 'proc_id', 'value']
+    df_columns += jobs[0]['params'].keys()
+    completed_job_df = pd.DataFrame(columns=df_columns)
+    for job in jobs:
+        if job['status'] == 'complete':
+            row_dict = {}
+            row_dict['index'] = job['id']
+            row_dict['submit time'] = job['submit time']
+            row_dict['start time'] = job['submit time']
+            row_dict['end time'] = job['end time']
+            row_dict['proc_id'] = job['proc_id']
+            row_dict['value'] = job['values']['main']
+            for key, value in job['params'].iteritems():
+                row_dict[key] = value['values']
+            completed_job_df = completed_job_df.append(row_dict, ignore_index=True)
+    completed_job_df = completed_job_df.set_index('index')
+    completed_job_df.to_pickle(filename)
 
 def load_task_group(db, options, task_names=None):
     if task_names is None:
