@@ -11,5 +11,5 @@
 
 .idea/
 spearmint.egg-info/
-benchmarks/*/*/
+benchmarks/*/**
 
