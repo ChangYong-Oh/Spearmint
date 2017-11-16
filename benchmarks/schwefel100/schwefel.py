@@ -10,7 +10,7 @@ def schwefel(params):
     result = 418.9829
     for ii in range(d):
         xi = xx[ii] * 500.0
-        new = xi * math.sin(math.abs(xi) ** 0.5) / d
+        new = xi * math.sin(abs(xi) ** 0.5) / d
         result -= new
 
     print('Result = %f' % result)
