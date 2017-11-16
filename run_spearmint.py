@@ -4,9 +4,10 @@ import os.path
 import subprocess
 from datetime import datetime
 from shutil import copy
+import numpy as np
 
 
-def run_spearmint(exp_path, n_eval):
+def run_spearmint(exp_path, n_eval, grid_shift=False):
 	folder_name = os.path.abspath(exp_path)
 	func_name = ''.join([c for c in os.path.split(folder_name)[1] if not c.isdigit()])
 	exp_type = os.path.split(folder_name)[1]
@@ -21,11 +22,13 @@ def run_spearmint(exp_path, n_eval):
 
 	logfile_name = open(os.path.join(exp_dir, exp_type + '_' + tag + '.log'), 'w')
 	cmd_str = 'python ./spearmint/main.py ' + exp_dir + ' --evals ' + str(n_eval)
+	if grid_shift:
+		cmd_str += ' --gridseed ' + str(np.random.randint(0, 20000))
 	process = subprocess.Popen(cmd_str, shell=True, stdout=logfile_name, stderr=logfile_name)
 	return process
 
 
-def run_spearmint_multiple(benchmarks_root_dir, exp_list, n_eval_list):
+def run_spearmint_multiple(benchmarks_root_dir, exp_list, n_eval_list, grid_shift=False):
 	benchmarks_root_dir = os.path.realpath(benchmarks_root_dir)
 	n_exp = len(exp_list)
 	assert n_exp == len(n_eval_list)
@@ -43,7 +46,7 @@ def run_spearmint_multiple(benchmarks_root_dir, exp_list, n_eval_list):
 	exp_path_list = [os.path.join(benchmarks_root_dir, elm) for elm in exp_list]
 	process_list = []
 	for exp_path, n_eval in zip(exp_path_list, n_eval_list):
-		process_list.append(run_spearmint(exp_path, n_eval))
+		process_list.append(run_spearmint(exp_path, n_eval, grid_shift))
 	n_running = n_exp
 	while n_running > 0:
 		time.sleep(60)
@@ -62,4 +65,4 @@ if __name__ == '__main__':
 	for i in range(2, len(sys.argv), 2):
 		exp_list.append(sys.argv[i])
 		n_eval_list.append(int(sys.argv[i + 1]))
-	run_spearmint_multiple(sys.argv[1], exp_list, n_eval_list)
+	run_spearmint_multiple(sys.argv[1], exp_list, n_eval_list, sys.argv[-1] == '--grid_shift')
