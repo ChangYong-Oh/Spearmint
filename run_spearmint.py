@@ -56,10 +56,10 @@ def run_spearmint_multiple(benchmarks_root_dir, exp_list, n_eval_list, grid_shif
 		running = [elm.poll() is None for elm in process_list]
 		n_running = running.count(True)
 		print('%d/%d is still running %s' % (n_running, n_exp, time.strftime("%H:%M:%S")))
-		sys.stdout.flush()
 		for e in range(n_exp):
 			if running[e]:
 				print('    %s' % exp_path_list[e])
+		sys.stdout.flush()
 	cmd_str = 'mongod --shutdown --dbpath ' + dbpath
 	if '/var/scratch/' in os.path.realpath(__file__):
 		cmd_str = '/var/scratch/coh/mongodb/mongodb-linux-x86_64-3.4.10/bin/' + cmd_str
