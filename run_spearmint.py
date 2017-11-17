@@ -41,7 +41,10 @@ def run_spearmint_multiple(benchmarks_root_dir, exp_list, n_eval_list, grid_shif
 	if not os.path.exists(dbpath):
 		os.makedirs(dbpath)
 	mongodb_logfile_name = os.path.join(dbpath, 'mongodb.log')
-	os.system('mongod --fork --logpath ' + mongodb_logfile_name + ' --dbpath ' + dbpath)
+	cmd_str = 'mongod --fork --logpath ' + mongodb_logfile_name + ' --dbpath ' + dbpath
+	if '/var/scratch/' in os.path.realpath(__file__):
+		cmd_str = '/var/scratch/coh/mongodb/mongodb-linux-x86_64-3.4.10/bin/' + cmd_str
+	os.system(cmd_str)
 
 	exp_path_list = [os.path.join(benchmarks_root_dir, elm) for elm in exp_list]
 	process_list = []
@@ -56,7 +59,10 @@ def run_spearmint_multiple(benchmarks_root_dir, exp_list, n_eval_list, grid_shif
 		for e in range(n_exp):
 			if running[e]:
 				print('    %s' % exp_path_list[e])
-	os.system('mongod --shutdown --dbpath ' + dbpath)
+	cmd_str = 'mongod --shutdown --dbpath ' + dbpath
+	if '/var/scratch/' in os.path.realpath(__file__):
+		cmd_str = '/var/scratch/coh/mongodb/mongodb-linux-x86_64-3.4.10/bin/' + cmd_str
+	os.system(cmd_str)
 
 
 if __name__ == '__main__':
