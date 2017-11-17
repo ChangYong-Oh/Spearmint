@@ -46,6 +46,7 @@ def run_spearmint_multiple(benchmarks_root_dir, exp_list, n_eval_list, grid_shif
 		cmd_str = '/var/scratch/coh/mongodb/mongodb-linux-x86_64-3.4.10/bin/' + cmd_str
 	os.system(cmd_str)
 
+	print(benchmarks_root_dir)
 	exp_path_list = [os.path.join(benchmarks_root_dir, elm) for elm in exp_list]
 	process_list = []
 	for exp_path, n_eval in zip(exp_path_list, n_eval_list):
