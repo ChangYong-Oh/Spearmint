@@ -46,7 +46,6 @@ def run_spearmint_multiple(benchmarks_root_dir, exp_list, n_eval_list, grid_shif
 		cmd_str = '/var/scratch/coh/mongodb/mongodb-linux-x86_64-3.4.10/bin/' + cmd_str
 	os.system(cmd_str)
 
-	print(benchmarks_root_dir)
 	exp_path_list = [os.path.join(benchmarks_root_dir, elm) for elm in exp_list]
 	process_list = []
 	for exp_path, n_eval in zip(exp_path_list, n_eval_list):
@@ -57,6 +56,7 @@ def run_spearmint_multiple(benchmarks_root_dir, exp_list, n_eval_list, grid_shif
 		running = [elm.poll() is None for elm in process_list]
 		n_running = running.count(True)
 		print('%d/%d is still running %s' % (n_running, n_exp, time.strftime("%H:%M:%S")))
+		sys.stdout.flush()
 		for e in range(n_exp):
 			if running[e]:
 				print('    %s' % exp_path_list[e])
