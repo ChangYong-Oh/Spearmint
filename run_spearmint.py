@@ -20,12 +20,12 @@ def run_spearmint(exp_path, n_eval, grid_shift=False):
 	if not os.path.exists(os.path.join(exp_dir, func_name + '.py')):
 		copy(os.path.join(folder_name, func_name + '.py'), os.path.join(exp_dir, func_name + '.py'))
 
-	logfile_name = open(os.path.join(exp_dir, exp_type + '_' + tag + '.log'), 'w')
+	logfile = open(os.path.join(exp_dir, exp_type + '_' + tag + '.log'), 'w')
 	cmd_str = 'python ./spearmint/main.py ' + exp_dir + ' --evals ' + str(n_eval)
 	if grid_shift:
 		cmd_str += ' --gridseed ' + str(np.random.randint(0, 20000))
-	process = subprocess.Popen(cmd_str, shell=True, stdout=logfile_name, stderr=logfile_name)
-	return process
+	process = subprocess.Popen(cmd_str, shell=True, stdout=logfile, stderr=logfile)
+	return process, exp_dir.split('/')[-1]
 
 
 def run_spearmint_multiple(benchmarks_root_dir, exp_list, n_eval_list, grid_shift=False):
@@ -48,17 +48,20 @@ def run_spearmint_multiple(benchmarks_root_dir, exp_list, n_eval_list, grid_shif
 
 	exp_path_list = [os.path.join(benchmarks_root_dir, elm) for elm in exp_list]
 	process_list = []
+	dir_list = []
 	for exp_path, n_eval in zip(exp_path_list, n_eval_list):
-		process_list.append(run_spearmint(exp_path, n_eval, grid_shift))
+		process, dir_name = run_spearmint(exp_path, n_eval, grid_shift)
+		process_list.append(process)
+		dir_list.append(dir_name)
 	n_running = n_exp
 	while n_running > 0:
 		time.sleep(60)
 		running = [elm.poll() is None for elm in process_list]
 		n_running = running.count(True)
-		print('%d/%d is still running %s' % (n_running, n_exp, time.strftime("%H:%M:%S")))
+		print('%d/%d is still running %s\ndb path : %s' % (n_running, n_exp, time.strftime("%H:%M:%S"), dbpath))
 		for e in range(n_exp):
 			if running[e]:
-				print('    %s' % exp_path_list[e])
+				print('    %s' % dir_list[e])
 		sys.stdout.flush()
 	cmd_str = 'mongod --shutdown --dbpath ' + dbpath
 	if '/var/scratch/' in os.path.realpath(__file__):
