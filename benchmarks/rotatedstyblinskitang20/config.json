@@ -1,0 +1,128 @@
+{
+    "experiment-name": "rotatedstyblinskitang_D20",
+    "language": "PYTHON",
+    "likelihood": "GAUSSIAN",
+    "main-file": "rotatedstyblinskitang.py",
+    "variables": {
+        "x1": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x10": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x11": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x12": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x13": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x14": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x15": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x16": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x17": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x18": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x19": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x2": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x20": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x3": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x4": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x5": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x6": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x7": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x8": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x9": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        }
+    }
+}

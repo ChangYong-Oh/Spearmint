@@ -12,5 +12,5 @@
 .idea/
 mongodb/
 spearmint.egg-info/
-benchmarks/*/
+benchmarks/*/*_*/
 

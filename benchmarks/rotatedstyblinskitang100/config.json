@@ -1,0 +1,608 @@
+{
+    "experiment-name": "rotatedstyblinskitang_D100",
+    "language": "PYTHON",
+    "likelihood": "GAUSSIAN",
+    "main-file": "rotatedstyblinskitang.py",
+    "variables": {
+        "x1": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x10": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x100": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x11": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x12": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x13": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x14": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x15": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x16": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x17": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x18": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x19": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x2": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x20": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x21": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x22": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x23": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x24": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x25": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x26": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x27": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x28": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x29": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x3": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x30": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x31": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x32": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x33": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x34": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x35": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x36": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x37": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x38": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x39": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x4": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x40": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x41": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x42": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x43": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x44": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x45": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x46": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x47": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x48": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x49": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x5": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x50": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x51": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x52": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x53": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x54": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x55": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x56": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x57": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x58": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x59": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x6": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x60": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x61": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x62": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x63": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x64": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x65": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x66": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x67": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x68": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x69": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x7": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x70": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x71": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x72": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x73": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x74": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x75": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x76": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x77": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x78": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x79": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x8": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x80": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x81": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x82": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x83": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x84": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x85": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x86": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x87": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x88": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x89": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x9": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x90": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x91": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x92": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x93": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x94": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x95": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x96": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x97": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x98": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x99": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        }
+    }
+}
