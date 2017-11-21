@@ -217,6 +217,8 @@ def get_options():
     parser.add_option("--gridseed", dest="grid_seed",
                       help="Shifting sobol grid",
                       type="int", default=0)
+    parser.add_option("--parallel", action="store_true", dest="parallel_opt",
+                      help="Use multicore in acquisition function optimization")
 
     (commandline_kwargs, args) = parser.parse_args()
 
@@ -231,12 +233,13 @@ def get_options():
             options = json.load(f, object_pairs_hook=OrderedDict)
     except:
         raise Exception("config.json did not load properly. Perhaps a spurious comma?")
-    options["config"]  = commandline_kwargs.config_file
-    options["max_eval"]= commandline_kwargs.max_eval
+    options["config"] = commandline_kwargs.config_file
+    options["max_eval"] = commandline_kwargs.max_eval
     options["grid_seed"] = commandline_kwargs.grid_seed
 
     # Set sensible defaults for options
-    options['chooser']  = options.get('chooser', 'default_chooser')
+    options['chooser'] = options.get('chooser', 'default_chooser')
+    options['chooser-args'] = {'parallel-opt': commandline_kwargs.parallel_opt}
     if 'tasks' not in options:
         options['tasks'] = {'main' : {'type' : 'OBJECTIVE', 'likelihood' : options.get('likelihood', 'GAUSSIAN')}}
 

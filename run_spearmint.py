@@ -2,33 +2,30 @@ import sys
 import time
 import os.path
 import subprocess
+import pickle
 from datetime import datetime
 from shutil import copy
 import numpy as np
 
 
-def run_spearmint(exp_path, n_eval, grid_shift=False):
-	folder_name = os.path.abspath(exp_path)
-	func_name = ''.join([c for c in os.path.split(folder_name)[1] if not c.isdigit()])
-	exp_type = os.path.split(folder_name)[1]
-	tag = datetime.now().strftime('%Y%m%d-%H:%M:%S:%f')
-	exp_dir = os.path.join(folder_name, exp_type + '_' + tag)
+def run_spearmint(exp_dir, n_eval, grid_shift=0):
+	exp_dir = os.path.realpath(exp_dir)
+	parent_dir = os.path.split(exp_dir)[0]
+	func_name = ''.join([c for c in os.path.split(parent_dir)[1] if not c.isdigit()])
 	if not os.path.exists(exp_dir):
 		os.makedirs(exp_dir)
 	if not os.path.exists(os.path.join(exp_dir, 'config.json')):
-		copy(os.path.join(folder_name, 'config.json'), os.path.join(exp_dir, 'config.json'))
+		copy(os.path.join(parent_dir, 'config.json'), os.path.join(exp_dir, 'config.json'))
 	if not os.path.exists(os.path.join(exp_dir, func_name + '.py')):
-		copy(os.path.join(folder_name, func_name + '.py'), os.path.join(exp_dir, func_name + '.py'))
+		copy(os.path.join(parent_dir, func_name + '.py'), os.path.join(exp_dir, func_name + '.py'))
 
-	logfile = open(os.path.join(exp_dir, exp_type + '_' + tag + '.log'), 'w')
-	cmd_str = 'python ./spearmint/main.py ' + exp_dir + ' --evals ' + str(n_eval)
-	if grid_shift:
-		cmd_str += ' --gridseed ' + str(np.random.randint(0, 20000))
+	logfile = open(os.path.join(exp_dir, os.path.split(exp_dir)[1] + '.log'), 'w')
+	cmd_str = 'python ./spearmint/main.py ' + exp_dir + ' --evals ' + str(n_eval) + ' --gridseed ' + str(grid_shift) + ' --parallel'
 	process = subprocess.Popen(cmd_str, shell=True, stdout=logfile, stderr=logfile)
-	return process, exp_dir.split('/')[-1]
+	return process
 
 
-def run_spearmint_multiple(benchmarks_root_dir, exp_list, n_eval_list, grid_shift=False):
+def run_multiple_init(benchmarks_root_dir, exp_list, n_eval_list):
 	benchmarks_root_dir = os.path.realpath(benchmarks_root_dir)
 	n_exp = len(exp_list)
 	assert n_exp == len(n_eval_list)
@@ -37,7 +34,27 @@ def run_spearmint_multiple(benchmarks_root_dir, exp_list, n_eval_list, grid_shif
 		exit()
 	dbpath_tag = datetime.now().strftime('%Y%m%d-%H:%M:%S:%f')
 	dbpath_tag += '_' + '-'.join([exp_list[i] + '[' + str(n_eval_list[i]) + ']' for i in range(n_exp)])
-	dbpath = os.path.join(os.path.split(benchmarks_root_dir)[0], 'mongodb', dbpath_tag)
+	dbpath = os.path.relpath(os.path.join(os.path.split(benchmarks_root_dir)[0], 'mongodb', dbpath_tag))
+
+	exp_dir_list = []
+	for e in range(n_exp):
+		exp_dir = os.path.relpath(os.path.join(benchmarks_root_dir, exp_list[e], exp_list[e] + '_' + datetime.now().strftime('%Y%m%d-%H:%M:%S:%f')))
+		if not os.path.exists(exp_dir):
+			os.makedirs(exp_dir)
+		exp_dir_list.append(exp_dir)
+		time.sleep(np.random.uniform() * 0.1)
+	grid_shift_list = list(np.random.randint(0, 20000, n_exp))
+
+	exp_info_filename = os.path.join(os.path.split(benchmarks_root_dir)[0], 'mongodb', dbpath_tag + '.pkl')
+	exp_info_file = open(exp_info_filename, 'w')
+	exp_info = {'dbpath': dbpath, 'exp_dir_list': exp_dir_list, 'n_eval_list': n_eval_list, 'grid_shift_list': grid_shift_list}
+	pickle.dump(exp_info, exp_info_file)
+	exp_info_file.close()
+
+	run_multiple(dbpath, exp_dir_list, n_eval_list, grid_shift_list)
+
+
+def run_multiple(dbpath, exp_dir_list, n_eval_list, grid_shift_list):
 	if not os.path.exists(dbpath):
 		os.makedirs(dbpath)
 	mongodb_logfile_name = os.path.join(dbpath, 'mongodb.log')
@@ -46,13 +63,11 @@ def run_spearmint_multiple(benchmarks_root_dir, exp_list, n_eval_list, grid_shif
 		cmd_str = '/var/scratch/coh/mongodb/mongodb-linux-x86_64-3.4.10/bin/' + cmd_str
 	os.system(cmd_str)
 
-	exp_path_list = [os.path.join(benchmarks_root_dir, elm) for elm in exp_list]
+	n_exp = len(exp_dir_list)
 	process_list = []
-	dir_list = []
-	for exp_path, n_eval in zip(exp_path_list, n_eval_list):
-		process, dir_name = run_spearmint(exp_path, n_eval, grid_shift)
+	for e in range(n_exp):
+		process = run_spearmint(exp_dir_list[e], n_eval_list[e], grid_shift_list[e])
 		process_list.append(process)
-		dir_list.append(dir_name)
 	n_running = n_exp
 	while n_running > 0:
 		time.sleep(60)
@@ -61,18 +76,25 @@ def run_spearmint_multiple(benchmarks_root_dir, exp_list, n_eval_list, grid_shif
 		print('%d/%d is still running %s\ndb path : %s' % (n_running, n_exp, time.strftime("%H:%M:%S"), dbpath))
 		for e in range(n_exp):
 			if running[e]:
-				print('    %s' % dir_list[e])
+				print('    %s' % exp_dir_list[e])
 		sys.stdout.flush()
 	cmd_str = 'mongod --shutdown --dbpath ' + dbpath
 	if '/var/scratch/' in os.path.realpath(__file__):
 		cmd_str = '/var/scratch/coh/mongodb/mongodb-linux-x86_64-3.4.10/bin/' + cmd_str
 	os.system(cmd_str)
+	return 0
 
 
 if __name__ == '__main__':
 	exp_list = []
 	n_eval_list = []
-	for i in range(2, len(sys.argv), 2):
-		exp_list.append(sys.argv[i])
-		n_eval_list.append(int(sys.argv[i + 1]))
-	run_spearmint_multiple(sys.argv[1], exp_list, n_eval_list, sys.argv[-1] == '--grid_shift')
+	if len(sys.argv) > 1:
+		for i in range(2, len(sys.argv), 2):
+			exp_list.append(sys.argv[i])
+			n_eval_list.append(int(sys.argv[i + 1]))
+		run_multiple_init(sys.argv[1], exp_list, n_eval_list)
+	else:
+		exp_info_file = open(os.path.realpath(sys.argv[1]), 'r')
+		exp_info = pickle.load(exp_info_file)
+		exp_info_file.close()
+		run_multiple(**exp_info)

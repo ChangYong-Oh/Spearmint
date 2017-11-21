@@ -187,7 +187,7 @@ import sys
 import numpy          as np
 import numpy.random   as npr
 import scipy.optimize as spo
-import multiprocessing
+from pathos import multiprocessing
 
 from collections import defaultdict
 
@@ -256,8 +256,22 @@ class DefaultChooser(object):
 
         # Create the grid of optimization initializers
         # Need to do it here because it's used in many places e.g. best
-        self.grid = sobol_grid.generate(self.num_dims, grid_size=self.grid_size, 
-                                        grid_seed=self.grid_seed)
+        generated_grid = sobol_grid.generate(self.num_dims, grid_size=self.grid_size, grid_seed=self.grid_seed)
+        n_added = 0
+        center_pt_val = (0 + 1) / 2.0
+        center_vector_mask = (generated_grid == 0.5).all(1)
+        center_vector_ind = np.where(center_vector_mask)[0]
+        center_vector = np.ones((1, self.num_dims)) * center_pt_val
+        n_added += center_vector_ind.size == 0
+        conner_pt_val = (1 + 1) / 2.0
+        conner_vector_mask = (generated_grid == conner_pt_val).all(1)
+        conner_vector_ind = np.where(conner_vector_mask)[0]
+        conner_vector = np.ones((1, self.num_dims)) * conner_pt_val
+        n_added += conner_vector_ind.size == 0
+        normal_pt_ind = np.where(np.logical_and(~center_vector_mask, ~conner_vector_mask))[0]
+        normal_pt = generated_grid[normal_pt_ind][:-n_added]
+
+        self.grid = np.vstack((center_vector, conner_vector, normal_pt))
 
         # A useful hack: add previously visited points to the grid
         for task_name, task in task_group.tasks.iteritems():
@@ -364,8 +378,7 @@ class DefaultChooser(object):
         if self.parallel_opt:
             # Optimize each point in parallel
             pool = multiprocessing.Pool(self.grid_subset)
-            results = [pool.apply_async(self.optimize_pt,args=(
-                    c,b,current_best,True)) for c in best_grid_pred]
+            results = [pool.apply_async(self.optimize_pt, args=(c,b,current_best,True)) for c in best_grid_pred]
 
             for res in results:
                 cand.append(res.get(1e8))
