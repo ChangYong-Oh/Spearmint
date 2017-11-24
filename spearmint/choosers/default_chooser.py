@@ -390,7 +390,7 @@ class DefaultChooser(object):
             process_running = [False] * self.grid_subset
             process_index = 0
             while process_started.count(False) > 0:
-                if process_index < 5:
+                if process_index < 8:
                     run_more = True
                 else:
                     time.sleep(1)
