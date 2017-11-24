@@ -389,10 +389,14 @@ class DefaultChooser(object):
             process_started = [False] * self.grid_subset
             process_running = [False] * self.grid_subset
             process_index = 0
+            start_time = time.time()
             while process_started.count(False) > 0:
                 time.sleep(1)
+                elapsed_time = time.time() - start_time
                 n_running = float(max(1, process_running.count(True)))
-                run_more = [(elm - 16.0) / n_running <= n_cpu - elm for elm in os.getloadavg()].count(False) == 0
+                loadavg_1min = os.getloadavg()[0]
+                loadavg_discount = 16.0 if elapsed_time < 60 else 0
+                run_more = (loadavg_1min - loadavg_discount) / n_running < n_cpu - loadavg_1min
                 if run_more:
                     results.append(pool.apply_async(self.optimize_pt, args=(best_grid_pred[process_index],b,current_best,True)))
                     process_started[process_index] = True
