@@ -74,7 +74,7 @@ def run_multiple(dbpath, exp_dir_list, n_eval_list, grid_shift_list, parallel=Fa
 			time.sleep(60)
 			running = [elm.poll() is None for elm in process_list]
 			n_running = running.count(True)
-			print('%d/%d is still running %s\ndb path : %s loadavg : %4.2f, %4.2f, %4.2f' % (n_running, n_exp, time.strftime("%H:%M:%S"), dbpath) + os.getloadavg())
+			print('%d/%d is still running %s\ndb path : %s loadavg : %4.2f, %4.2f, %4.2f' % ((n_running, n_exp, time.strftime("%H:%M:%S"), dbpath) + os.getloadavg()))
 			for e in range(n_exp):
 				if running[e]:
 					print('    %s' % exp_dir_list[e])
@@ -84,7 +84,7 @@ def run_multiple(dbpath, exp_dir_list, n_eval_list, grid_shift_list, parallel=Fa
 			process = run_spearmint(exp_dir_list[e], n_eval_list[e], grid_shift_list[e])
 			while process.poll() is None:
 				time.sleep(60)
-				print('Experiment is running db path : %s exp_dir : %s(%s) loadavg %4.2f, %4.2f, %4.2f' % (dbpath, exp_dir_list[e], time.strftime("%H:%M:%S")) + os.getloadavg())
+				print('Experiment is running db path : %s exp_dir : %s(%s) loadavg %4.2f, %4.2f, %4.2f' % ((dbpath, exp_dir_list[e], time.strftime("%H:%M:%S")) + os.getloadavg()))
 				sys.stdout.flush()
 	cmd_str = 'mongod --shutdown --dbpath ' + dbpath
 	if '/var/scratch/' in os.path.realpath(__file__):
@@ -102,6 +102,7 @@ if __name__ == '__main__':
 			n_eval_list.append(int(sys.argv[i + 1]))
 		run_multiple_init(sys.argv[1], exp_list, n_eval_list)
 	else:
+		print('Experiment is continued with dbpath %s' % sys.argv[1])
 		exp_info_file = open(os.path.realpath(sys.argv[1]), 'r')
 		exp_info = pickle.load(exp_info_file)
 		exp_info_file.close()
