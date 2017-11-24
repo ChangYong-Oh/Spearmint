@@ -393,7 +393,7 @@ class DefaultChooser(object):
                 if process_index < 5:
                     run_more = True
                 else:
-                    time.sleep(5)
+                    time.sleep(1)
                     n_running = float(max(1, process_running.count(True)))
                     run_more = [elm / n_running <= n_cpu - elm for elm in os.getloadavg()].count(False) == 0 if process_index > 5 else True
                 if run_more:
