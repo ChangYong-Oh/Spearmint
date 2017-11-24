@@ -96,7 +96,7 @@ def run_multiple(dbpath, exp_dir_list, n_eval_list, grid_shift_list, parallel=Fa
 if __name__ == '__main__':
 	exp_list = []
 	n_eval_list = []
-	if len(sys.argv) > 1:
+	if len(sys.argv) > 2:
 		for i in range(2, len(sys.argv), 2):
 			exp_list.append(sys.argv[i])
 			n_eval_list.append(int(sys.argv[i + 1]))
