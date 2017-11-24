@@ -382,6 +382,7 @@ class DefaultChooser(object):
             # pool = multiprocessing.Pool(self.grid_subset)
             # results = [pool.apply_async(self.optimize_pt, args=(c,b,current_best,True)) for c in best_grid_pred]
 
+            # To prevent competing for resource
             n_cpu = float(multiprocessing.cpu_count())
             pool = multiprocessing.Pool(self.grid_subset)
             results = []
@@ -389,9 +390,12 @@ class DefaultChooser(object):
             process_running = [False] * self.grid_subset
             process_index = 0
             while process_started.count(False) > 0:
-                time.sleep(1)
-                n_running = float(max(1, process_running.count(True)))
-                run_more = [elm / n_running <= n_cpu - elm for elm in os.getloadavg()].count(False) == 0
+                if process_index < 5:
+                    run_more = True
+                else:
+                    time.sleep(5)
+                    n_running = float(max(1, process_running.count(True)))
+                    run_more = [elm / n_running <= n_cpu - elm for elm in os.getloadavg()].count(False) == 0 if process_index > 5 else True
                 if run_more:
                     results.append(pool.apply_async(self.optimize_pt, args=(best_grid_pred[process_index],b,current_best,True)))
                     process_started[process_index] = True
@@ -406,7 +410,7 @@ class DefaultChooser(object):
             pool.close()
 
         else: 
-            # Optimize in series
+            # Optimize sequentially
             for c in best_grid_pred:
                 cand.append(self.optimize_pt(c,b,current_best,compute_grad=True))
         # Cand now stores the optimized points
