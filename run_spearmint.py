@@ -84,7 +84,7 @@ def run_multiple(dbpath, exp_dir_list, n_eval_list, grid_shift_list, parallel=Fa
 			process = run_spearmint(exp_dir_list[e], n_eval_list[e], grid_shift_list[e])
 			while process.poll() is None:
 				time.sleep(60)
-				print('Experiment is running db path : %s exp_dir : %s(%s) loadavg %4.2f, %4.2f, %4.2f' % ((dbpath, exp_dir_list[e], time.strftime("%H:%M:%S")) + os.getloadavg()))
+				print('Experiment is running db path : %s\n                      exp_dir : %s(%s) loadavg %4.2f, %4.2f, %4.2f' % ((dbpath, exp_dir_list[e], time.strftime("%H:%M:%S")) + os.getloadavg()))
 				sys.stdout.flush()
 	cmd_str = 'mongod --shutdown --dbpath ' + dbpath
 	if '/var/scratch/' in os.path.realpath(__file__):
