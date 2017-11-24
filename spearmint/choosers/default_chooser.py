@@ -391,7 +391,7 @@ class DefaultChooser(object):
             process_index = 0
             while process_started.count(False) > 0:
                 cpu_usage = psutil.cpu_percent(1.0) * psutil.cpu_count() * 0.01
-                run_more = cpu_usage + 4.0 < n_cpu - cpu_usage
+                run_more = cpu_usage + 4.0 < n_cpu
                 if run_more:
                     results.append(pool.apply_async(self.optimize_pt, args=(best_grid_pred[process_index],b,current_best,True)))
                     process_started[process_index] = True
