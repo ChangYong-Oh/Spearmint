@@ -183,7 +183,9 @@
 # its Institution.
 
 
+import os
 import sys
+import time
 import numpy          as np
 import numpy.random   as npr
 import scipy.optimize as spo
@@ -377,12 +379,32 @@ class DefaultChooser(object):
 
         if self.parallel_opt:
             # Optimize each point in parallel
+            # pool = multiprocessing.Pool(self.grid_subset)
+            # results = [pool.apply_async(self.optimize_pt, args=(c,b,current_best,True)) for c in best_grid_pred]
+
+            n_cpu = float(multiprocessing.cpu_count())
             pool = multiprocessing.Pool(self.grid_subset)
-            results = [pool.apply_async(self.optimize_pt, args=(c,b,current_best,True)) for c in best_grid_pred]
+            results = []
+            process_started = [False] * self.grid_subset
+            process_running = [False] * self.grid_subset
+            process_index = 0
+            while process_started.count(False) > 0:
+                time.sleep(1)
+                n_running = float(max(1, process_running.count(True)))
+                run_more = [elm / n_running <= n_cpu - elm for elm in os.getloadavg()].count(False) == 0
+                if run_more:
+                    results.append(pool.apply_async(self.optimize_pt, args=(best_grid_pred[process_index],b,current_best,True)))
+                    process_started[process_index] = True
+                    process_running[process_index] = True
+                    process_index += 1
+            while process_running.count(True) > 0:
+                time.sleep(1)
+                process_running = [not p.ready() for p in results]
 
             for res in results:
                 cand.append(res.get(1e8))
             pool.close()
+
         else: 
             # Optimize in series
             for c in best_grid_pred:
