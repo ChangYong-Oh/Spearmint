@@ -15,8 +15,8 @@ def michalewicz(params):
         i = ii + 1
         new = math.sin(xi) * math.pow((math.sin(i * math.pow(xi, 2) / math.pi)), (2 * m))
         result += new
-
-    print('Result = %f' % result)
+    result /= float(d)
+    print('Result = %f' % -result)
 
     return -result
 
