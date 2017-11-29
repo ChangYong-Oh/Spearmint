@@ -383,15 +383,14 @@ class DefaultChooser(object):
             # results = [pool.apply_async(self.optimize_pt, args=(c,b,current_best,True)) for c in best_grid_pred]
 
             # To prevent competing for resource
-            n_cpu = float(multiprocessing.cpu_count())
             pool = multiprocessing.Pool(self.grid_subset)
             results = []
             process_started = [False] * self.grid_subset
             process_running = [False] * self.grid_subset
             process_index = 0
             while process_started.count(False) > 0:
-                cpu_usage = psutil.cpu_percent(1.0) * psutil.cpu_count() * 0.01
-                run_more = cpu_usage + 4.0 < n_cpu
+                cpu_usage = psutil.cpu_percent(0.2)
+                run_more = (100.0 - cpu_usage) * float(psutil.cpu_count()) > 500.0
                 if run_more:
                     results.append(pool.apply_async(self.optimize_pt, args=(best_grid_pred[process_index],b,current_best,True)))
                     process_started[process_index] = True
