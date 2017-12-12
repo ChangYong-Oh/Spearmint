@@ -1,0 +1,308 @@
+{
+    "experiment-name": "branin_D50",
+    "language": "PYTHON",
+    "likelihood": "GAUSSIAN",
+    "main-file": "branin.py",
+    "variables": {
+        "x1": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x10": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x11": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x12": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x13": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x14": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x15": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x16": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x17": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x18": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x19": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x2": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x20": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x21": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x22": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x23": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x24": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x25": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x26": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x27": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x28": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x29": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x3": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x30": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x31": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x32": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x33": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x34": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x35": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x36": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x37": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x38": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x39": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x4": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x40": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x41": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x42": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x43": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x44": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x45": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x46": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x47": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x48": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x49": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x5": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x50": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x6": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x7": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x8": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        },
+        "x9": {
+            "max": 1,
+            "min": -1,
+            "size": 1,
+            "type": "FLOAT"
+        }
+    }
+}
