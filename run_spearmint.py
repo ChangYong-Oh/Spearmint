@@ -11,7 +11,7 @@ import numpy as np
 def run_spearmint(exp_dir, n_eval, grid_shift=0):
 	exp_dir = os.path.realpath(exp_dir)
 	parent_dir = os.path.split(exp_dir)[0]
-	func_name = ''.join([c for c in os.path.split(parent_dir)[1] if not c.isdigit()])
+	func_name = '_'.join(parent_dir.split('_')[:-1])
 	if not os.path.exists(exp_dir):
 		os.makedirs(exp_dir)
 	if not os.path.exists(os.path.join(exp_dir, 'config.json')):
