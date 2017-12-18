@@ -81,7 +81,7 @@ def test(test_loader, model, use_cuda):
 	return test_loss, test_accuracy
 
 batch_size = 64
-epoch = 50
+epoch = 20
 
 
 def mlp_weight(weight_vector):
