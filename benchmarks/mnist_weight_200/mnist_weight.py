@@ -105,4 +105,7 @@ def mlp_weight(weight_vector):
 def main(job_id, params):
 	print('Anything printed here will end up in the output directory for job #%d' % job_id)
 	print(params)
-	return mlp_weight(torch.FloatTensor(params))
+	param_list = []
+	for i in range(1, len(params) + 1):
+		param_list.append(params['x' + str(i)])
+	return mlp_weight(torch.FloatTensor(param_list))

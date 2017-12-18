@@ -13,4 +13,4 @@
 mongodb/
 spearmint.egg-info/
 benchmarks/*/*_*/
-
+benchmarks/mnist_weight_*/data

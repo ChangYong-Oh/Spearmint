@@ -11,7 +11,7 @@ import numpy as np
 def run_spearmint(exp_dir, n_eval, grid_shift=0):
 	exp_dir = os.path.realpath(exp_dir)
 	parent_dir = os.path.split(exp_dir)[0]
-	func_name = '_'.join(parent_dir.split('_')[:-1])
+	func_name = '_'.join((parent_dir.split('/')[-1]).split('_')[:-1])
 	if not os.path.exists(exp_dir):
 		os.makedirs(exp_dir)
 	if not os.path.exists(os.path.join(exp_dir, 'config.json')):
@@ -34,11 +34,11 @@ def run_multiple_init(benchmarks_root_dir, exp_list, n_eval_list):
 		exit()
 	dbpath_tag = datetime.now().strftime('%Y%m%d-%H:%M:%S:%f')
 	dbpath_tag += '_' + '-'.join([exp_list[i] + '[' + str(n_eval_list[i]) + ']' for i in range(n_exp)])
-	dbpath = os.path.relpath(os.path.join(os.path.split(benchmarks_root_dir)[0], 'mongodb', dbpath_tag))
+	dbpath = os.path.realpath(os.path.join(os.path.split(benchmarks_root_dir)[0], 'mongodb', dbpath_tag))
 
 	exp_dir_list = []
 	for e in range(n_exp):
-		exp_dir = os.path.relpath(os.path.join(benchmarks_root_dir, exp_list[e], exp_list[e] + '_' + datetime.now().strftime('%Y%m%d-%H:%M:%S:%f')))
+		exp_dir = os.path.realpath(os.path.join(benchmarks_root_dir, exp_list[e], exp_list[e] + '_' + datetime.now().strftime('%Y%m%d-%H:%M:%S:%f')))
 		if not os.path.exists(exp_dir):
 			os.makedirs(exp_dir)
 		exp_dir_list.append(exp_dir)
