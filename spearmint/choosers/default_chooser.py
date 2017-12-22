@@ -260,20 +260,28 @@ class DefaultChooser(object):
         # Need to do it here because it's used in many places e.g. best
         generated_grid = sobol_grid.generate(self.num_dims, grid_size=self.grid_size, grid_seed=self.grid_seed)
         n_added = 0
+
         center_pt_val = (0 + 1) / 2.0
         center_vector_mask = (generated_grid == 0.5).all(1)
         center_vector_ind = np.where(center_vector_mask)[0]
         center_vector = np.ones((1, self.num_dims)) * center_pt_val
         n_added += center_vector_ind.size == 0
-        conner_pt_val = (1 + 1) / 2.0
-        conner_vector_mask = (generated_grid == conner_pt_val).all(1)
-        conner_vector_ind = np.where(conner_vector_mask)[0]
-        conner_vector = np.ones((1, self.num_dims)) * conner_pt_val
-        n_added += conner_vector_ind.size == 0
-        normal_pt_ind = np.where(np.logical_and(~center_vector_mask, ~conner_vector_mask))[0]
+
+        # conner_pt_val = (1 + 1) / 2.0
+        # conner_vector_mask = (generated_grid == conner_pt_val).all(1)
+        # conner_vector_ind = np.where(conner_vector_mask)[0]
+        # conner_vector = np.ones((1, self.num_dims)) * conner_pt_val
+        # n_added += conner_vector_ind.size == 0
+
+        random_vector = np.random.uniform(0, 1, (1, self.num_dims))  # random
+        random_vector_mask = (sobol_grid == random_vector).all(1)
+        random_vector_ind = np.where(random_vector_mask)[0]
+        n_added += random_vector_ind.size == 0
+
+        normal_pt_ind = np.where(np.logical_and(~center_vector_mask, ~random_vector_mask))[0]
         normal_pt = generated_grid[normal_pt_ind][:-n_added]
 
-        self.grid = np.vstack((center_vector, conner_vector, normal_pt))
+        self.grid = np.vstack((center_vector, random_vector, normal_pt))
 
         # A useful hack: add previously visited points to the grid
         for task_name, task in task_group.tasks.iteritems():
