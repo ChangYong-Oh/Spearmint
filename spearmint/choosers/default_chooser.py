@@ -259,6 +259,7 @@ class DefaultChooser(object):
         # Create the grid of optimization initializers
         # Need to do it here because it's used in many places e.g. best
         generated_grid = sobol_grid.generate(self.num_dims, grid_size=self.grid_size, grid_seed=self.grid_seed)
+
         n_added = 0
 
         center_pt_val = (0 + 1) / 2.0
@@ -276,6 +277,7 @@ class DefaultChooser(object):
         random_vector = np.random.uniform(0, 1, (1, self.num_dims))  # random
         random_vector_mask = (sobol_grid == random_vector).all(1)
         random_vector_ind = np.where(random_vector_mask)[0]
+
         n_added += random_vector_ind.size == 0
 
         normal_pt_ind = np.where(np.logical_and(~center_vector_mask, ~random_vector_mask))[0]
